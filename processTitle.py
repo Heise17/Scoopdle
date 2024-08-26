@@ -9,7 +9,7 @@ state_list = pd.read_csv('states.txt')['States'].to_list()
 
 # initialize spell checker and natural language processing instances
 speller = SpellChecker()
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 # Extract title string from DB
 
