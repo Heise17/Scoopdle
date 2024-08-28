@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import WordBox from "./WordBox";
-import {FidgetSpinner} from 'react-loader-spinner';
+import { FidgetSpinner } from "react-loader-spinner";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -15,19 +15,21 @@ function App() {
   const [image3, setImage3] = useState([]);
   const [clickedImage, setClickedImage] = useState("");
   const [isHelp, setIsHelp] = useState(false);
+  const [inputCorrect, setInputCorrect] = useState([]);
+  const [realSubmits, setRealSubmits] = useState(0);
 
   // on load, fetch info from api and initialize guessedLisst array
   useEffect(() => {
     fetchTitle();
     fetchWords();
     fetchImage();
-    setGuessedList(new Array(words.length));
+    setInputCorrect(new Array(words.length).fill(false));
   }, []);
 
   // fetch title from api
   const fetchTitle = async () => {
-    const response = await fetch("/api/title");
-    // const response = await fetch("http://10.0.0.8:5000/api/title");
+    // const response = await fetch("/api/title");
+    const response = await fetch("http://10.0.0.8:5000/api/title");
     const data = await response.json();
     setTitle(data.title.title);
     setTitleLink(data.title.link);
@@ -35,16 +37,16 @@ function App() {
 
   // fetch words from api
   const fetchWords = async () => {
-    const response = await fetch("/api/words");
-    // const response = await fetch("http://10.0.0.8:5000/api/words");
+    // const response = await fetch("/api/words");
+    const response = await fetch("http://10.0.0.8:5000/api/words");
     const data = await response.json();
     setWords(data.words);
   };
 
   // fetch image from api
   const fetchImage = async () => {
-    const response = await fetch("/api/image");
-    // const response = await fetch("http://10.0.0.8:5000/api/image");
+    // const response = await fetch("/api/image");
+    const response = await fetch("http://10.0.0.8:5000/api/image");
     const data = await response.json();
     setClickedImage(data.image.image1);
     setImage1([data.image.image1, "active-button"]);
@@ -52,10 +54,28 @@ function App() {
     setImage3([data.image.image3, "inactive-button"]);
   };
 
+  const setInputs = (wordId, state) => {
+    let newArr = inputCorrect;
+    newArr[wordId] = state;
+    setInputCorrect(newArr);
+  };
+
+  const getInputs = () => {
+    for (const inState of inputCorrect) {
+      if (!inState) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   // register submits
   const onSubmit = async (e) => {
     e.preventDefault();
     setNumSubmits(numSubmits + 1);
+    if (getInputs()) {
+      setRealSubmits(realSubmits + 1);
+    }
   };
 
   // updates the completed array
@@ -76,16 +96,6 @@ function App() {
     }
     if (totalGuesses == 0) {
       return "0";
-    }
-    return totalGuesses;
-  };
-
-  const numGuesses = (completedArr) => {
-    let totalGuesses = 0;
-    for (const wordState of completedArr) {
-      if (typeof wordState !== "undefined") {
-        totalGuesses += wordState[1];
-      }
     }
     return totalGuesses;
   };
@@ -116,14 +126,10 @@ function App() {
 
   const setHelp = () => {
     if (!isHelp) {
-        setIsHelp(true);
+      setIsHelp(true);
     } else {
-        setIsHelp(false)
+      setIsHelp(false);
     }
-  };
-
-  const setHelpOff = () => {
-    setIsHelp(false);
   };
 
   return (
@@ -133,7 +139,11 @@ function App() {
           <div className="flex-h">
             <span className="invis-icon"></span>
             <h1>Scoopdle</h1>
-            <button type="button" className="material-symbols-outlined" onClick={setHelp}>
+            <button
+              type="button"
+              className="material-symbols-outlined"
+              onClick={setHelp}
+            >
               help
             </button>
           </div>
@@ -146,7 +156,13 @@ function App() {
       {isHelp && (
         <div className="round-thin">
           <div className="top-right">
-            <button type="button" className="material-symbols-outlined" onClick={setHelp}>close</button>
+            <button
+              type="button"
+              className="material-symbols-outlined"
+              onClick={setHelp}
+            >
+              close
+            </button>
           </div>
           <p>
             Each day at 8:00pm EST, a new headline from recent news is selected.
@@ -155,38 +171,47 @@ function App() {
           </p>
           <br></br>
           <p>
-            As you fill in words, you can submit them at any time. You will only
-            be penalized if you type a full word that does not match the
-            headline word. More images will unlock if you guess words
-            incorrectly.
+            Type a full sentence that matches the blanks and press enter/submit.
+            If any words are incomplete or have already been guessed, a{" "}
+            <span className="red-border">red box</span> will indicate that they
+            need to be changed. Otherwise, your guesses will appear below the
+            blanks, color coded as follows:
           </p>
           <br></br>
           <p>
-            <span className="green-text">GREEN </span> letters match the
-            headline word exactly
+            <span className="green-text">GREEN</span> letters match the headline
+            word exactly
           </p>
           <br></br>
           <p>
-            <span className="yellow-text">YELLOW </span> letters are found in
-            the headline word, but in a different position
+            <span className="yellow-text">YELLOW</span> letters are at a different position in the word
           </p>
           <br></br>
           <p>
-            <span className="red-text">RED </span> letters are not found in the
+            <span className="red-text">RED</span> letters are not found in the
             headline word
           </p>
+          <br></br>
+          <p>More images unlock if you guess the headline incorrectly.</p>
         </div>
       )}
-      {image3 != "" && <img
-        className="center"
-        src={"data:image/jpeg;base64," + clickedImage}
-        alt=""
-      />}
-      {image3 == "" && 
-      <div className="loader-spacing">
-        <FidgetSpinner className="loader-spacing" backgroundColor="white" height={50} width={50}/>
-      </div>
-      }
+      {image3 != "" && (
+        <img
+          className="center"
+          src={"data:image/jpeg;base64," + clickedImage}
+          alt=""
+        />
+      )}
+      {image3 == "" && (
+        <div className="loader-spacing">
+          <FidgetSpinner
+            className="loader-spacing"
+            backgroundColor="white"
+            height={50}
+            width={50}
+          />
+        </div>
+      )}
       <div className="flex-h">
         <button
           id="1"
@@ -196,7 +221,7 @@ function App() {
         >
           1
         </button>
-        {(numGuesses(completed) >= 2 || isFullCleared(completed)) && (
+        {(realSubmits >= 1 || isFullCleared(completed)) && (
           <button
             id="2"
             type="button"
@@ -206,12 +231,12 @@ function App() {
             2
           </button>
         )}
-        {numGuesses(completed) < 2 && !isFullCleared(completed) && (
+        {realSubmits < 1 && !isFullCleared(completed) && (
           <button id="2l" type="button" className="button-overlay">
-            Locked - {2 - numGuesses(completed)} more misses
+            Locked - {1 - realSubmits} more guess
           </button>
         )}
-        {(numGuesses(completed) >= 4 || isFullCleared(completed)) && (
+        {(realSubmits >= 2 || isFullCleared(completed)) && (
           <button
             id="3"
             type="button"
@@ -221,17 +246,15 @@ function App() {
             3
           </button>
         )}
-        {numGuesses(completed) < 4 && !isFullCleared(completed) && (
+        {realSubmits < 2 && !isFullCleared(completed) && (
           <button id="3l" type="button" className="button-overlay">
-            Locked - {4 - numGuesses(completed)} more misses
+            Locked - {2 - realSubmits} more guesses
           </button>
         )}
       </div>
       {isFullCleared(completed) && (
         <div className="round-thin">
-          <h3>
-            Congrats! You only messed up {isFullCleared(completed)} times!
-          </h3>
+          <h3>Congrats! You only messed up {realSubmits - 1} times!</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -257,6 +280,9 @@ function App() {
               setGuessed={setGuessedList}
               numSubmits={numSubmits}
               setCompleted={insertCompleted}
+              setInputCorrect={setInputs}
+              allCorr={getInputs}
+              inputCorrect={inputCorrect}
             />
           ))}
         </div>

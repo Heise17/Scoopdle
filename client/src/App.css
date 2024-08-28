@@ -158,6 +158,13 @@
   font-size: 1em;
 }
 
+.red-border {
+    border-width: 2px; 
+    border-style: solid; 
+    border-color: rgb(255, 45, 45);
+    border-radius: 3px;
+}
+
 .top-right {
   margin: -5px 0 0 0;
   width: 105%;
