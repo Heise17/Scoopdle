@@ -82,16 +82,16 @@
 
 .round-thin {
   display: flex;
-  font-size: 0.9em;
+  font-size: 0.8em;
   flex-direction: column;
   justify-content: center;
   background-color: #1d1d1d;
   justify-self: center;
   border-radius: 10px;
   border: 1px solid gray;
-  margin: 0px auto 10px;
-  padding: 10px;
-  max-width: 500px;
+  margin: 0px auto 2px;
+  padding: 8px;
+  max-width: 370px;
   animation: 3s infinite alternate slidein;
 }
 
@@ -145,17 +145,17 @@
 
 .red-text {
   color: rgb(255, 45, 45);
-  font-size: 1em;
+  /* font-size: 1em; */
 }
 
 .green-text {
   color: rgb(0, 202, 0);
-  font-size: 1em;
+  /* font-size: 1em; */
 }
 
 .yellow-text {
   color: rgb(255, 208, 0);
-  font-size: 1em;
+  /* font-size: 1em; */
 }
 
 .red-border {
@@ -188,6 +188,7 @@ h3 {
   text-align: center;
   font-weight: normal;
   color: white;
+  font-size: 1.3em;
 }
 
 img {

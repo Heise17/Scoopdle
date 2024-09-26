@@ -11,6 +11,7 @@ const WordBox = ({
   setCompleted,
   setInputCorrect,
   allCorr,
+  isFailed,
 }) => {
   const [isGuessed, setIsGuessed] = useState(false);
   const [wordsGuessed, setWordsGuessed] = useState([]);
@@ -97,7 +98,7 @@ const WordBox = ({
     setIsPunct(true);
   }
 
-  if (isGuessed || word.autoRevealed) {
+  if (isGuessed || word.autoRevealed || isFailed) {
     // displays box with word revealed
     return (
       <div className="center">
@@ -115,7 +116,8 @@ const WordBox = ({
             <g-b className="punct">{word.word}</g-b>
           )}
           {word.autoRevealed && !isPunct && <b>{word.word}</b>}
-          {!word.autoRevealed && !isPunct && <g-b>{word.word}</g-b>}
+          {!word.autoRevealed && !isPunct && isGuessed && <g-b>{word.word}</g-b>}
+          {!word.autoRevealed && !isPunct && !isGuessed && isFailed && <r-b>{word.word}</r-b>}
         </div>
         <div className="break"></div>
         {lettersGuessed

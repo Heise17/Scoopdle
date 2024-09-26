@@ -10,6 +10,8 @@ function App() {
   const [guessedList, setGuessedList] = useState([]);
   const [numSubmits, setNumSubmits] = useState(0);
   const [completed, setCompleted] = useState([]);
+  const [finished, setFinished] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [image1, setImage1] = useState([]);
   const [image2, setImage2] = useState([]);
   const [image3, setImage3] = useState([]);
@@ -25,6 +27,12 @@ function App() {
     fetchImage();
     setInputCorrect(new Array(words.length).fill(false));
   }, []);
+
+  useEffect(() => {
+    if (realSubmits > 0) {
+      setFinished(isFullCleared(completed));
+    }
+  }, [realSubmits]);
 
   // fetch title from api
   const fetchTitle = async () => {
@@ -90,6 +98,9 @@ function App() {
     let totalGuesses = 0;
     for (const wordState of completedArr) {
       if (!wordState[0]) {
+        if (realSubmits >= 8) {
+          setFailed(true);
+        }
         return false;
       }
       totalGuesses += wordState[1];
@@ -184,7 +195,8 @@ function App() {
           </p>
           <br></br>
           <p>
-            <span className="yellow-text">YELLOW</span> letters are at a different position in the word
+            <span className="yellow-text">YELLOW</span> letters are at a
+            different position in the word
           </p>
           <br></br>
           <p>
@@ -212,6 +224,21 @@ function App() {
           />
         </div>
       )}
+      {!finished && realSubmits < 3 && !failed && (
+        <div className="round-thin">
+          <h2 className="green-text">{8 - realSubmits} attempts remaining</h2>
+        </div>
+      )}
+      {!finished && realSubmits < 7 && realSubmits >= 3 && !failed && (
+        <div className="round-thin">
+          <h2 className="yellow-text">{8 - realSubmits} attempts remaining</h2>
+        </div>
+      )}
+      {!finished && realSubmits > 6 && !failed && (
+        <div className="round-thin">
+          <h2 className="red-text">{8 - realSubmits} attempts remaining</h2>
+        </div>
+      )}
       <div className="flex-h">
         <button
           id="1"
@@ -221,7 +248,7 @@ function App() {
         >
           1
         </button>
-        {(realSubmits >= 1 || isFullCleared(completed)) && (
+        {(realSubmits >= 1 || finished || failed) && (
           <button
             id="2"
             type="button"
@@ -231,12 +258,12 @@ function App() {
             2
           </button>
         )}
-        {realSubmits < 1 && !isFullCleared(completed) && (
+        {realSubmits < 1 && !finished && !failed && (
           <button id="2l" type="button" className="button-overlay">
             Locked - {1 - realSubmits} more guess
           </button>
         )}
-        {(realSubmits >= 2 || isFullCleared(completed)) && (
+        {(realSubmits >= 2 || finished || failed) && (
           <button
             id="3"
             type="button"
@@ -246,15 +273,39 @@ function App() {
             3
           </button>
         )}
-        {realSubmits < 2 && !isFullCleared(completed) && (
+        {realSubmits < 2 && !finished && !failed && (
           <button id="3l" type="button" className="button-overlay">
             Locked - {2 - realSubmits} more guesses
           </button>
         )}
       </div>
-      {isFullCleared(completed) && (
+      {finished && realSubmits > 3 && (
         <div className="round-thin">
-          <h3>Congrats! You only messed up {realSubmits - 1} times!</h3>
+          <h3>Congrats! It took you {realSubmits} tries today!</h3>
+          <a href={titleLink} target="_blank" rel="noopener noreferrer">
+            Check out the full story here
+          </a>
+        </div>
+      )}
+      {finished && realSubmits <= 3 && realSubmits != 1 && (
+        <div className="round-thin">
+          <h3>Congrats! It only took you {realSubmits} tries! Nice!</h3>
+          <a href={titleLink} target="_blank" rel="noopener noreferrer">
+            Check out the full story here
+          </a>
+        </div>
+      )}
+      {finished && realSubmits == 1 && (
+        <div className="round-thin">
+          <h3>Wow Congrats! It only took you {realSubmits} try?! Crazy!</h3>
+          <a href={titleLink} target="_blank" rel="noopener noreferrer">
+            Check out the full story here
+          </a>
+        </div>
+      )}
+      {failed && (
+        <div className="round-thin">
+          <h3>Better luck tomorrow!</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -262,7 +313,7 @@ function App() {
       )}
       <form className="center-form" onSubmit={onSubmit} autoComplete="off">
         <div>
-          {!isFullCleared(completed) && (
+          {!finished && !failed && (
             <input
               className="center-button"
               type="submit"
@@ -283,6 +334,7 @@ function App() {
               setInputCorrect={setInputs}
               allCorr={getInputs}
               inputCorrect={inputCorrect}
+              isFailed={failed}
             />
           ))}
         </div>

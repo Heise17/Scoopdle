@@ -17,13 +17,13 @@ low-label {
 under-label {
   font-size: 1.2em;
   font-weight: bold;
-  color: red;
+  color: rgb(255, 45, 45);
   grid-row: 4;
 }
 
 input-overlay {
   position: relative;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.2em;
   grid-row: 3;
   grid-column: 1;
@@ -37,7 +37,7 @@ input-overlay {
 }
 
 input {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: bold;
   font-size: 1.2em;
   place-content: center;
@@ -66,10 +66,20 @@ g-b {
   grid-row: 3;
 }
 
+r-b {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: rgb(255, 45, 45);
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  grid-row: 3;
+}
+
 .red-outline {
-  border: 2px solid red;
+  border: 2px solid rgb(255, 45, 45);
   border-radius: 4px;
-  outline-color: red;
+  outline-color: rgb(255, 45, 45);
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 5px;
@@ -94,12 +104,12 @@ g-b {
 }
 
 .punct {
-    margin-left: -6px;
+  margin-left: -6px;
 }
 
 .dash {
-    margin-left: -6px;
-    margin-right: -6px;
+  margin-left: -6px;
+  margin-right: -6px;
 }
 
 @media all and (max-width: 550px) {
@@ -118,7 +128,7 @@ g-b {
   }
 
   low-label {
-    font-size: .8em;
+    font-size: 0.8em;
     position: relative;
     left: 1px;
   }
@@ -136,7 +146,7 @@ g-b {
     left: 1px;
     margin: 0px;
   }
-  
+
   b {
     font-size: 1em;
     margin-left: 5px;
@@ -155,11 +165,21 @@ g-b {
     grid-row: 3;
   }
 
+  r-b {
+    font-size: 1em;
+    font-weight: bold;
+    color: rgb(255, 45, 45);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    grid-row: 3;
+  }
+
   .red-outline {
     font-size: 1em;
-    border: 2px solid red;
+    border: 2px solid rgb(255, 45, 45);
     border-radius: 4px;
-    outline-color: red;
+    outline-color: rgb(255, 45, 45);
     width: 88%;
     margin-left: 0px;
     margin-right: -2px;
