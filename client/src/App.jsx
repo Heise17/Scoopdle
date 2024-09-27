@@ -12,6 +12,7 @@ function App() {
   const [completed, setCompleted] = useState([]);
   const [finished, setFinished] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [hintArray, setHintArray] = useState([]);
   const [image1, setImage1] = useState([]);
   const [image2, setImage2] = useState([]);
   const [image3, setImage3] = useState([]);
@@ -31,6 +32,16 @@ function App() {
   useEffect(() => {
     if (realSubmits > 0) {
       setFinished(isFullCleared(completed));
+    }
+    if (realSubmits >= 3) {
+        for (let i = 0; i < completed.length; i++) {
+            if (!completed[i][0] && !hintArray.includes(i+1)){
+                let newArr = hintArray;
+                newArr.push(i+1);
+                setHintArray(newArr);
+                break;
+            }
+        }
     }
   }, [realSubmits]);
 
@@ -98,7 +109,7 @@ function App() {
     let totalGuesses = 0;
     for (const wordState of completedArr) {
       if (!wordState[0]) {
-        if (realSubmits >= 8) {
+        if (realSubmits >= 6) {
           setFailed(true);
         }
         return false;
@@ -204,7 +215,7 @@ function App() {
             headline word
           </p>
           <br></br>
-          <p>More images unlock if you guess the headline incorrectly.</p>
+          <p>More images unlock if you guess the headline incorrectly. <span className="blue-text">BLUE</span> hints will appear above incomplete words if all 3 images have already been revelead.</p>
         </div>
       )}
       {image3 != "" && (
@@ -226,17 +237,17 @@ function App() {
       )}
       {!finished && realSubmits < 3 && !failed && (
         <div className="round-thin">
-          <h2 className="green-text">{8 - realSubmits} attempts remaining</h2>
+          <h2 className="green-text">{6 - realSubmits} attempts remaining</h2>
         </div>
       )}
-      {!finished && realSubmits < 7 && realSubmits >= 3 && !failed && (
+      {!finished && realSubmits < 5 && realSubmits >= 3 && !failed && (
         <div className="round-thin">
-          <h2 className="yellow-text">{8 - realSubmits} attempts remaining</h2>
+          <h2 className="yellow-text">{6 - realSubmits} attempts remaining</h2>
         </div>
       )}
-      {!finished && realSubmits > 6 && !failed && (
+      {!finished && realSubmits > 4 && !failed && (
         <div className="round-thin">
-          <h2 className="red-text">{8 - realSubmits} attempts remaining</h2>
+          <h2 className="red-text">{6 - realSubmits} attempts remaining</h2>
         </div>
       )}
       <div className="flex-h">
@@ -281,7 +292,7 @@ function App() {
       </div>
       {finished && realSubmits > 3 && (
         <div className="round-thin">
-          <h3>Congrats! It took you {realSubmits} tries today!</h3>
+          <h3>Congrats! It took you {realSubmits} tries!</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -289,7 +300,7 @@ function App() {
       )}
       {finished && realSubmits <= 3 && realSubmits != 1 && (
         <div className="round-thin">
-          <h3>Congrats! It only took you {realSubmits} tries! Nice!</h3>
+          <h3>Nice! It only took you {realSubmits} tries today!</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -297,7 +308,7 @@ function App() {
       )}
       {finished && realSubmits == 1 && (
         <div className="round-thin">
-          <h3>Wow Congrats! It only took you {realSubmits} try?! Crazy!</h3>
+          <h3>Wow awesome! It only took you {realSubmits} try?! Crazy!</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -305,7 +316,7 @@ function App() {
       )}
       {failed && (
         <div className="round-thin">
-          <h3>Better luck tomorrow!</h3>
+          <h3>Better luck tomorrow...</h3>
           <a href={titleLink} target="_blank" rel="noopener noreferrer">
             Check out the full story here
           </a>
@@ -335,6 +346,7 @@ function App() {
               allCorr={getInputs}
               inputCorrect={inputCorrect}
               isFailed={failed}
+              hints={hintArray}
             />
           ))}
         </div>

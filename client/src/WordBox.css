@@ -14,6 +14,16 @@ low-label {
   grid-row: 2;
 }
 
+low-label-b {
+    font-size: 1em;
+    font-weight: bold;
+    place-content: center;
+    place-self: center;
+    margin-bottom: 8px;
+    grid-row: 2;
+    color: rgb(85, 113, 255);
+}
+
 under-label {
   font-size: 1.2em;
   font-weight: bold;

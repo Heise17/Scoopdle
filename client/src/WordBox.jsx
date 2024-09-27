@@ -12,6 +12,7 @@ const WordBox = ({
   setInputCorrect,
   allCorr,
   isFailed,
+  hints,
 }) => {
   const [isGuessed, setIsGuessed] = useState(false);
   const [wordsGuessed, setWordsGuessed] = useState([]);
@@ -116,8 +117,12 @@ const WordBox = ({
             <g-b className="punct">{word.word}</g-b>
           )}
           {word.autoRevealed && !isPunct && <b>{word.word}</b>}
-          {!word.autoRevealed && !isPunct && isGuessed && <g-b>{word.word}</g-b>}
-          {!word.autoRevealed && !isPunct && !isGuessed && isFailed && <r-b>{word.word}</r-b>}
+          {!word.autoRevealed && !isPunct && isGuessed && (
+            <g-b>{word.word}</g-b>
+          )}
+          {!word.autoRevealed && !isPunct && !isGuessed && isFailed && (
+            <r-b>{word.word}</r-b>
+          )}
         </div>
         <div className="break"></div>
         {lettersGuessed
@@ -138,8 +143,13 @@ const WordBox = ({
     return (
       <div key={word.wordNum} className="center">
         <div className="center-grid">
-          <high-label>{word.numLetters}</high-label>
-          <low-label>{word.pos}</low-label>
+          {hints.includes(word.id) && <low-label-b>{word.helpString}</low-label-b>}
+
+          {!hints.includes(word.id) && (
+            <high-label>{word.numLetters}</high-label>
+          )}
+          {!hints.includes(word.id) && <low-label>{word.pos}</low-label>}
+
           <input-overlay>{blankStr.repeat(word.numLetters)}</input-overlay>
           {!isInputError && (
             <input

@@ -46,6 +46,7 @@ class words(db.Model):
     pos = db.Column(db.String(30), unique=False, nullable=False)
     auto_revealed = db.Column(db.Boolean, unique=False, nullable=False)
     date = db.Column(db.Date, unique=False, nullable=False)
+    help_string = db.Column(db.String(50), unique=False, nullable=True)
     a = db.Column(db.Integer, unique=False, nullable = False)
     b = db.Column(db.Integer, unique=False, nullable = False)
     c = db.Column(db.Integer, unique=False, nullable = False)
@@ -83,6 +84,7 @@ class words(db.Model):
             "pos": self.pos,
             "autoRevealed": self.auto_revealed,
             "date": self.date,
+            "helpString": self.help_string,
             "a":self.a,
             "b":self.b,
             "c":self.c,

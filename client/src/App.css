@@ -89,7 +89,7 @@
   justify-self: center;
   border-radius: 10px;
   border: 1px solid gray;
-  margin: 0px auto 2px;
+  margin: 10px auto 8px;
   padding: 8px;
   max-width: 370px;
   animation: 3s infinite alternate slidein;
@@ -155,6 +155,11 @@
 
 .yellow-text {
   color: rgb(255, 208, 0);
+  /* font-size: 1em; */
+}
+
+.blue-text {
+  color: rgb(85, 113, 255);
   /* font-size: 1em; */
 }
 
@@ -249,6 +254,10 @@ span {
   }
   .round-box {
     margin: 0 15px 16px 15px;
+  }
+
+  .round-thin {
+    margin-top: 15px;
   }
 
   .round-block {

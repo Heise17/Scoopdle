@@ -1,6 +1,8 @@
 import pandas as pd
 from spellchecker import SpellChecker
 import spacy
+import os
+from openai import OpenAI
 from spacy.matcher import Matcher
 
 # read reveal words and states from files
@@ -10,6 +12,8 @@ state_list = pd.read_csv('states.txt')['States'].to_list()
 # initialize spell checker and natural language processing instances
 speller = SpellChecker()
 nlp = spacy.load("en_core_web_md")
+
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 # Extract title string from DB
 
@@ -46,6 +50,10 @@ def post_words(doc, db, app, word_list, postDate):
     letter_counts = count_letters(doc)
     with app.app_context():
         for wordNum, word in enumerate(word_list):
+            if not word[4]:
+                ai_response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": f"Give a word related to: {word[1]}. Only respond with the word."}]).choices[0].message.content
+            else:
+                ai_response = ""
             wordDB = words(
                 word_num=word[0],  
                 word=word[1], 
@@ -53,6 +61,7 @@ def post_words(doc, db, app, word_list, postDate):
                 pos=word[3], 
                 auto_revealed=word[4], 
                 date=postDate, 
+                help_string = ai_response,
                 a=letter_counts[wordNum]["a"], 
                 b=letter_counts[wordNum]["b"], 
                 c=letter_counts[wordNum]["c"], 
