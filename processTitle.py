@@ -51,7 +51,7 @@ def post_words(doc, db, app, word_list, postDate):
     with app.app_context():
         for wordNum, word in enumerate(word_list):
             if not word[4]:
-                ai_response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": f"Give a word related to: {word[1]}. Only respond with the word."}]).choices[0].message.content
+                ai_response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": f"Give a word related to: {word[1]}. Only respond with the lowercase word, no punctuation"}]).choices[0].message.content
             else:
                 ai_response = ""
             wordDB = words(
