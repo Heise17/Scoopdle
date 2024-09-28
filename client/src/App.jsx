@@ -29,6 +29,7 @@ function App() {
     setInputCorrect(new Array(words.length).fill(false));
   }, []);
 
+  // on submit, check if finished and handle hints
   useEffect(() => {
     if (realSubmits > 0) {
       setFinished(isFullCleared(completed));
@@ -73,12 +74,14 @@ function App() {
     setImage3([data.image.image3, "inactive-button"]);
   };
 
+  // adjusts input state array for a signle word
   const setInputs = (wordId, state) => {
     let newArr = inputCorrect;
     newArr[wordId] = state;
     setInputCorrect(newArr);
   };
 
+  // determines if all inputs are valid
   const getInputs = () => {
     for (const inState of inputCorrect) {
       if (!inState) {
@@ -122,6 +125,7 @@ function App() {
     return totalGuesses;
   };
 
+  // sets active image
   const switchImage = async (e) => {
     let clickedId = e.target.id;
     switch (clickedId) {
@@ -146,6 +150,7 @@ function App() {
     }
   };
 
+  // triggers help menu
   const setHelp = () => {
     if (!isHelp) {
       setIsHelp(true);
@@ -161,7 +166,9 @@ function App() {
           <div className="flex-h">
             <button
               className="material-symbols-outlined"
-              onClick={()=> window.open("https://buymeacoffee.com/scoopdle", "_blank")}
+              onClick={() =>
+                window.open("https://buymeacoffee.com/scoopdle", "_blank")
+              }
               rel="noopener noreferrer"
             >
               coffee

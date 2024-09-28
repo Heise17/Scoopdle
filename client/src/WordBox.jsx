@@ -75,6 +75,7 @@ const WordBox = ({
     }
   }, [numSubmits]);
 
+  // evaluates inputs as they are typed
   useEffect(() => {
     if (typeof word.wordNum !== "undefined" && word.autoRevealed) {
       setInputCorrect(word.wordNum, true);
@@ -143,7 +144,9 @@ const WordBox = ({
     return (
       <div key={word.wordNum} className="center">
         <div className="center-grid">
-          {hints.includes(word.id) && <low-label-b>({word.helpString})</low-label-b>}
+          {hints.includes(word.id) && (
+            <low-label-b>({word.helpString})</low-label-b>
+          )}
 
           {!hints.includes(word.id) && (
             <high-label>{word.numLetters}</high-label>

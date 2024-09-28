@@ -38,6 +38,7 @@ const GuessedLabel = ({ letters, corrWord }) => {
       y: corrWord.y,
       z: corrWord.z,
     };
+    // first loop fully determines user input and how many yellow letters to use
     for (let i = 0; i < letters.length; i++) {
       // check for exact match
       if (
@@ -60,6 +61,7 @@ const GuessedLabel = ({ letters, corrWord }) => {
         }
       }
     }
+    // second loop assigns colors to letters
     for (let i = 0; i < letters.length; i++) {
       // check for exact match
       if (

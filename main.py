@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 from flask_cors import CORS, cross_origin
 from flask.helpers import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+
+# load environment variables
 load_dotenv()
 
 # initialize flask app and cross origin resource sharing
@@ -15,13 +17,14 @@ app = Flask(__name__, static_folder="client/dist", static_url_path="")
 cors = CORS(app, origins='*')
 
 # link SQLAlchemy to database
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "SQLALCHEMY_DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # SQLAlchemy and OpenAI instances
 db = SQLAlchemy(app)
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-    
+
 # title database table
 class title(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,34 +50,33 @@ class words(db.Model):
     auto_revealed = db.Column(db.Boolean, unique=False, nullable=False)
     date = db.Column(db.Date, unique=False, nullable=False)
     help_string = db.Column(db.String(50), unique=False, nullable=True)
-    a = db.Column(db.Integer, unique=False, nullable = False)
-    b = db.Column(db.Integer, unique=False, nullable = False)
-    c = db.Column(db.Integer, unique=False, nullable = False)
-    d = db.Column(db.Integer, unique=False, nullable = False)
-    e = db.Column(db.Integer, unique=False, nullable = False)
-    f = db.Column(db.Integer, unique=False, nullable = False)
-    g = db.Column(db.Integer, unique=False, nullable = False)
-    h = db.Column(db.Integer, unique=False, nullable = False)
-    i = db.Column(db.Integer, unique=False, nullable = False)
-    j = db.Column(db.Integer, unique=False, nullable = False)
-    k = db.Column(db.Integer, unique=False, nullable = False)
-    l = db.Column(db.Integer, unique=False, nullable = False)
-    m = db.Column(db.Integer, unique=False, nullable = False)
-    n = db.Column(db.Integer, unique=False, nullable = False)
-    o = db.Column(db.Integer, unique=False, nullable = False)
-    p = db.Column(db.Integer, unique=False, nullable = False)
-    q = db.Column(db.Integer, unique=False, nullable = False)
-    r = db.Column(db.Integer, unique=False, nullable = False)
-    s = db.Column(db.Integer, unique=False, nullable = False)
-    t = db.Column(db.Integer, unique=False, nullable = False)
-    u = db.Column(db.Integer, unique=False, nullable = False)
-    v = db.Column(db.Integer, unique=False, nullable = False)
-    w = db.Column(db.Integer, unique=False, nullable = False)
-    x = db.Column(db.Integer, unique=False, nullable = False)
-    y = db.Column(db.Integer, unique=False, nullable = False)
-    z = db.Column(db.Integer, unique=False, nullable = False)
-    
-    
+    a = db.Column(db.Integer, unique=False, nullable=False)
+    b = db.Column(db.Integer, unique=False, nullable=False)
+    c = db.Column(db.Integer, unique=False, nullable=False)
+    d = db.Column(db.Integer, unique=False, nullable=False)
+    e = db.Column(db.Integer, unique=False, nullable=False)
+    f = db.Column(db.Integer, unique=False, nullable=False)
+    g = db.Column(db.Integer, unique=False, nullable=False)
+    h = db.Column(db.Integer, unique=False, nullable=False)
+    i = db.Column(db.Integer, unique=False, nullable=False)
+    j = db.Column(db.Integer, unique=False, nullable=False)
+    k = db.Column(db.Integer, unique=False, nullable=False)
+    l = db.Column(db.Integer, unique=False, nullable=False)
+    m = db.Column(db.Integer, unique=False, nullable=False)
+    n = db.Column(db.Integer, unique=False, nullable=False)
+    o = db.Column(db.Integer, unique=False, nullable=False)
+    p = db.Column(db.Integer, unique=False, nullable=False)
+    q = db.Column(db.Integer, unique=False, nullable=False)
+    r = db.Column(db.Integer, unique=False, nullable=False)
+    s = db.Column(db.Integer, unique=False, nullable=False)
+    t = db.Column(db.Integer, unique=False, nullable=False)
+    u = db.Column(db.Integer, unique=False, nullable=False)
+    v = db.Column(db.Integer, unique=False, nullable=False)
+    w = db.Column(db.Integer, unique=False, nullable=False)
+    x = db.Column(db.Integer, unique=False, nullable=False)
+    y = db.Column(db.Integer, unique=False, nullable=False)
+    z = db.Column(db.Integer, unique=False, nullable=False)
+
     def to_json(self):
         return {
             "id": self.id,
@@ -85,32 +87,32 @@ class words(db.Model):
             "autoRevealed": self.auto_revealed,
             "date": self.date,
             "helpString": self.help_string,
-            "a":self.a,
-            "b":self.b,
-            "c":self.c,
-            "d":self.d,
-            "e":self.e,
-            "f":self.f,
-            "g":self.g,
-            "h":self.h,
-            "i":self.i,
-            "j":self.j,
-            "k":self.k,
-            "l":self.l,
-            "m":self.m,
-            "n":self.n,
-            "o":self.o,
-            "p":self.p,
-            "q":self.q,
-            "r":self.r,
-            "s":self.s,
-            "t":self.t,
-            "u":self.u,
-            "v":self.v,
-            "w":self.w,
-            "x":self.x,
-            "y":self.y,
-            "z":self.z,
+            "a": self.a,
+            "b": self.b,
+            "c": self.c,
+            "d": self.d,
+            "e": self.e,
+            "f": self.f,
+            "g": self.g,
+            "h": self.h,
+            "i": self.i,
+            "j": self.j,
+            "k": self.k,
+            "l": self.l,
+            "m": self.m,
+            "n": self.n,
+            "o": self.o,
+            "p": self.p,
+            "q": self.q,
+            "r": self.r,
+            "s": self.s,
+            "t": self.t,
+            "u": self.u,
+            "v": self.v,
+            "w": self.w,
+            "x": self.x,
+            "y": self.y,
+            "z": self.z,
         }
 
 # aimage database table
@@ -120,7 +122,7 @@ class aimage(db.Model):
     image2 = db.Column(db.LargeBinary, unique=False, nullable=False)
     image3 = db.Column(db.LargeBinary, unique=False, nullable=False)
     date = db.Column(db.Date, unique=False, nullable=False)
-    
+
     def to_json(self):
         return {
             "id": self.id,
@@ -141,7 +143,7 @@ def fetch_title():
 @app.route("/api/words", methods=["GET"])
 @cross_origin()
 def fetch_words():
-    ws = words.query.filter_by(date = date.today())
+    ws = words.query.filter_by(date=date.today())
     json_words = list(map(lambda x: x.to_json(), ws))
     return jsonify({"words": json_words})
 
@@ -149,30 +151,30 @@ def fetch_words():
 @app.route("/api/image", methods=["GET"])
 @cross_origin()
 def fetch_image():
-    ii = aimage.query.filter_by(date = date.today()).one()
+    ii = aimage.query.filter_by(date=date.today()).one()
     return jsonify({"image": ii.to_json()})
 
-# serves homepage
+# sendpoint for homepage
 @app.route("/")
 @cross_origin()
 def serve():
-    print("serving index.html")
     return send_from_directory(app.static_folder, "index.html")
 
 # generate new image from title and activate
 def update_title(newTitle, newTitleLink, y, m, d):
-    
+
     print("update started")
+    
     # #add new title to DB
     with app.app_context():
-        words.query.filter_by(date = date(y, m, d)).delete()
-        title.query.filter_by(date = date(y, m, d)).delete()
-        aimage.query.filter_by(date = date(y, m, d)).delete()
+        words.query.filter_by(date=date(y, m, d)).delete()
+        title.query.filter_by(date=date(y, m, d)).delete()
+        aimage.query.filter_by(date=date(y, m, d)).delete()
         db.session.commit()
         tt = title(date=date(y, m, d), title=newTitle, link=newTitleLink)
         db.session.add(tt)
         db.session.commit()
-        
+
     # # query OpenAI, return image as b64 string
     aImage1 = client.images.generate(
         response_format="b64_json",
@@ -201,19 +203,21 @@ def update_title(newTitle, newTitleLink, y, m, d):
         n=1
     )
     print("i3 generated")
-    
+
     # post OpenAI image to database and activate title
     with app.app_context():
-        mi = aimage(image1=bytes(aImage1.data[0].b64_json, "utf-8"), image2=bytes(aImage2.data[0].b64_json, "utf-8"), image3=bytes(aImage3.data[0].b64_json, "utf-8"), date=date(y, m, d))
+        mi = aimage(image1=bytes(aImage1.data[0].b64_json, "utf-8"), image2=bytes(
+            aImage2.data[0].b64_json, "utf-8"), image3=bytes(aImage3.data[0].b64_json, "utf-8"), date=date(y, m, d))
         db.session.add(mi)
         db.session.commit()
         init_title(db, app, date(y, m, d))
-        
+
     print("title init complete")
-    
+
+# replaces a current image with a newly generated image
 def switch_image(imageNum):
     with app.app_context():
-        currTitle = title.query.filter_by(date = date.today()).one()
+        currTitle = title.query.filter_by(date=date.today()).one()
         aImageNew = client.images.generate(
             response_format="b64_json",
             model="dall-e-3",
@@ -222,7 +226,7 @@ def switch_image(imageNum):
             quality="standard",
             n=1
         )
-        daily_i = db.session.query(aimage).filter_by(date = date.today()).one()
+        daily_i = db.session.query(aimage).filter_by(date=date.today()).one()
         match imageNum:
             case 1:
                 daily_i.image1 = bytes(aImageNew.data[0].b64_json, "utf-8")
@@ -234,8 +238,8 @@ def switch_image(imageNum):
                 daily_i.image3 = bytes(aImageNew.data[0].b64_json, "utf-8")
                 print("new image 3 added")
         db.session.commit()
-        
-    
+
+
 # creates database tables if necessary
 with app.app_context():
     db.create_all()
@@ -243,5 +247,4 @@ with app.app_context():
 # local mode
 if __name__ == "__main__":
     print("PYTHON APP LAUNCHED VIA MAIN")
-    # app.run(debug=True, host="localhost")
     app.run(debug=True, host="0.0.0.0")

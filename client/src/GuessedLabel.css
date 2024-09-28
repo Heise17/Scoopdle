@@ -43,7 +43,7 @@ no-space-orange {
     padding-right: 0px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: .9em;
+    font-size: 0.9em;
     color: rgb(255, 45, 45);
   }
 
@@ -54,7 +54,7 @@ no-space-orange {
     padding-right: 0px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: .9em;
+    font-size: 0.9em;
     color: rgb(0, 202, 0);
   }
 
@@ -65,8 +65,7 @@ no-space-orange {
     padding-right: 0px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: .9em;
+    font-size: 0.9em;
     color: rgb(255, 208, 0);
   }
-
 }

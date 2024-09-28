@@ -165,10 +165,10 @@
 }
 
 .red-border {
-    border-width: 2px; 
-    border-style: solid; 
-    border-color: rgb(255, 45, 45);
-    border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(255, 45, 45);
+  border-radius: 3px;
 }
 
 .top-right {
@@ -229,8 +229,8 @@ span {
 }
 
 .loader-spacing {
-    margin-top: 180px;
-    margin-bottom: 180px;
+  margin-top: 180px;
+  margin-bottom: 180px;
 }
 
 @media all and (min-width: 550px) {
