@@ -34,14 +34,14 @@ function App() {
       setFinished(isFullCleared(completed));
     }
     if (realSubmits >= 3) {
-        for (let i = 0; i < completed.length; i++) {
-            if (!completed[i][0] && !hintArray.includes(i+1)){
-                let newArr = hintArray;
-                newArr.push(i+1);
-                setHintArray(newArr);
-                break;
-            }
+      for (let i = 0; i < completed.length; i++) {
+        if (!completed[i][0] && !hintArray.includes(i + 1)) {
+          let newArr = hintArray;
+          newArr.push(i + 1);
+          setHintArray(newArr);
+          break;
         }
+      }
     }
   }, [realSubmits]);
 
@@ -159,7 +159,13 @@ function App() {
       <div className="round-box">
         <div className="center">
           <div className="flex-h">
-            <span className="invis-icon"></span>
+            <button
+              className="material-symbols-outlined"
+              onClick={()=> window.open("https://buymeacoffee.com/scoopdle", "_blank")}
+              rel="noopener noreferrer"
+            >
+              coffee
+            </button>
             <h1>Scoopdle</h1>
             <button
               type="button"
@@ -215,7 +221,11 @@ function App() {
             headline word
           </p>
           <br></br>
-          <p>More images unlock if you guess the headline incorrectly. <span className="blue-text">BLUE</span> hints will appear above incomplete words if all 3 images have already been revelead.</p>
+          <p>
+            More images unlock if you guess the headline incorrectly.{" "}
+            <span className="blue-text">BLUE</span> hints will appear above
+            incomplete words if all 3 images have already been revelead.
+          </p>
         </div>
       )}
       {image3 != "" && (
