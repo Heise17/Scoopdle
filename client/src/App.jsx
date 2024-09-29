@@ -39,6 +39,7 @@ function App() {
           let newArr = hintArray;
           newArr.push(i + 1);
           setHintArray(newArr);
+          console.log((i+1)+" added to hints");
           break;
         }
       }
