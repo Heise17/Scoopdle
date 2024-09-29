@@ -35,11 +35,11 @@ function App() {
     }
     if (realSubmits >= 3) {
       for (let i = 0; i < completed.length; i++) {
-        if (!completed[i][0] && !hintArray.includes(i + 1)) {
+        if (!completed[i][0] && !hintArray.includes(i+1)) {
           let newArr = hintArray;
-          newArr.push(i + 1);
+          newArr.push(i+1);
           setHintArray(newArr);
-          console.log((i+1)+" added to hints");
+          console.log((i+1)+" added to hints. Array: "+newArr);
           break;
         }
       }
