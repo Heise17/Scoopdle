@@ -37,7 +37,6 @@ const WordBox = ({
 
   // each time guesses are submitted the guessed/completed states are updated and necessary words revealed
   useEffect(() => {
-    console.log("word "+word.id+" reporting "+hints.includes(word.id));
     if (typeof word.wordNum !== "undefined" && word.autoRevealed) {
       setCompleted(word.wordNum, wordsGuessed.length, true);
       setInputCorrect(word.wordNum, true);
@@ -144,12 +143,12 @@ const WordBox = ({
     return (
       <div key={word.wordNum} className="center">
         <div className="center-grid">
-          {hints.includes(word.id) && <low-label-b>({word.helpString})</low-label-b>}
+          {hints.includes(word.wordNum) && <low-label-b>({word.helpString})</low-label-b>}
 
-          {!hints.includes(word.id) && (
+          {!hints.includes(word.wordNum) && (
             <high-label>{word.numLetters}</high-label>
           )}
-          {!hints.includes(word.id) && <low-label>{word.pos}</low-label>}
+          {!hints.includes(word.wordNum) && <low-label>{word.pos}</low-label>}
 
           <input-overlay>{blankStr.repeat(word.numLetters)}</input-overlay>
           {!isInputError && (
