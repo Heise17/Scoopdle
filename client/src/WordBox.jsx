@@ -37,6 +37,7 @@ const WordBox = ({
 
   // each time guesses are submitted the guessed/completed states are updated and necessary words revealed
   useEffect(() => {
+    console.log("word "+word.id+" reporting "+hints.includes(word.id));
     if (typeof word.wordNum !== "undefined" && word.autoRevealed) {
       setCompleted(word.wordNum, wordsGuessed.length, true);
       setInputCorrect(word.wordNum, true);
