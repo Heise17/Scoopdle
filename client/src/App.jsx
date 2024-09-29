@@ -20,6 +20,7 @@ function App() {
   const [isHelp, setIsHelp] = useState(false);
   const [inputCorrect, setInputCorrect] = useState([]);
   const [realSubmits, setRealSubmits] = useState(0);
+  const [submitChanged, setSubmitChanged] = useState(false);
 
   // on load, fetch info from api and initialize guessedLisst array
   useEffect(() => {
@@ -91,9 +92,11 @@ function App() {
   // register submits
   const onSubmit = async (e) => {
     e.preventDefault();
+    setSubmitChanged(true);
     setNumSubmits(numSubmits + 1);
     if (getInputs()) {
       setRealSubmits(realSubmits + 1);
+      setSubmitChanged(false);
     }
   };
 
@@ -343,6 +346,7 @@ function App() {
           )}
         </div>
         <div className="break"></div>
+        {!getInputs() && submitChanged && <div className="round-thin"><span className="red-text">Please make sure you type a full sentence with no repeated guesses.</span></div>}
         <div className="round-box">
           {words.map((word) => (
             <WordBox
