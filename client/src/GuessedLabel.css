@@ -1,35 +1,72 @@
 no-space-red {
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 1.5em;
-    font-family: monospace;
-    color: red;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: rgb(255, 45, 45);
 }
 
 no-space-green {
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 1.5em;
-    font-family: monospace;
-    color: green;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: rgb(0, 202, 0);
 }
 
 no-space-orange {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: rgb(255, 208, 0);
+}
+
+.guessed-box {
+  position: relative;
+}
+
+@media all and (max-width: 500px) {
+  no-space-red {
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 0px;
     padding-right: 0px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: 1.5em;
-    font-family: monospace;
-    color: orange;
+    font-size: .9em;
+    color: rgb(255, 45, 45);
+  }
+
+  no-space-green {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: .9em;
+    color: rgb(0, 202, 0);
+  }
+
+  no-space-orange {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: .9em;
+    color: rgb(255, 208, 0);
+  }
+
 }
