@@ -144,12 +144,8 @@ const WordBox = ({
     return (
       <div key={word.wordNum} className="center">
         <div className="center-grid">
-          {hints.includes(word.id) && (
-            <low-label-b>({word.helpString})</low-label-b>
-          )}
-          {!hints.includes(word.id) && (
-            <high-label>{word.numLetters}</high-label>
-          )}
+          {hints.includes(word.id) && <low-label-b>({word.helpString})</low-label-b>}
+          {!hints.includes(word.id) && <high-label>{word.numLetters}</high-label>}
           {!hints.includes(word.id) && <low-label>{word.pos}</low-label>}
           <input-overlay>{blankStr.repeat(word.numLetters)}</input-overlay>
           {!isInputError && (
